@@ -11,7 +11,7 @@ After every request generate complete, self-contained HTML documents with embedd
 2. Understand the user's request and what HTML content is needed
 3. Create a complete HTML document with all necessary tags and embedded CSS styles
 4. Save the HTML file to `/tmp/` with a descriptive name and `.html` extension (see `## File Output Convention` below)
-5. IMPORTANT: Open the file in the default web browser using the `open` command
+5. IMPORTANT: Open the file in the default browser using `cmd.exe /c start "$(wslpath -w /path/to/file.html)"`
 
 ## HTML Document Requirements
 - Generate COMPLETE HTML5 documents with `<!DOCTYPE html>`, `<html>`, `<head>`, and `<body>` tags
@@ -147,7 +147,7 @@ Style: Light red background, red left border
 When generating HTML files:
 1. Save to `/tmp/` directory with descriptive names
 2. Use `.html` extension
-3. Automatically open with `open` command after creation
+3. Automatically open with default browser after creation
 4. Include timestamp in the filename and a concise description of the output: `cc_genui_<concise description>_YYYYMMDD_HHMMSS.html`
 
 ## Response Pattern
@@ -170,5 +170,5 @@ Always prefer creating complete HTML documents over partial snippets. The goal i
 ## Response Guidelines
 - After generating the html: Concisely summarize your work, and link to the generated file path
 - The last piece of your response should be two things.
-  - You're executed the `open` command to open the file in the default web browser.
+  - You've executed the browser command to open the file: `cmd.exe /c start "$(wslpath -w /tmp/cc_genui_<filename>.html)"`
   - A path to the generated HTML file, e.g. `/tmp/cc_genui_<concise description>_YYYYMMDD_HHMMSS.html`.
