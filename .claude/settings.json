@@ -12,7 +12,9 @@
       "Write",
       "Edit",
       "Bash(chmod:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(curl:*)",
+      "Bash(echo:*)"
     ],
     "deny": []
   },
@@ -62,6 +64,10 @@
           {
             "type": "command",
             "command": "uv run .claude/hooks/stop.py --chat"
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/quality_gates.py"
           }
         ]
       }

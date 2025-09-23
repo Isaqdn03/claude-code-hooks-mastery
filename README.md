@@ -132,13 +132,21 @@ This approach ensures your hooks remain functional across different environments
 - `.claude/commands/` - Custom slash commands
   - `prime.md` - Project analysis and understanding
   - `crypto_research.md` - Cryptocurrency research workflows
-  - `cook.md` - Advanced task execution
+  - `ai_research.md` - Latest AI/ML research updates and developments (global command)
+  - `changelog_update.md` - Automated documentation updates using changelog-updater agent
   - `update_status_line.md` - Dynamic status updates
+  - `agent_prompts/` - Dedicated prompt templates for specialized agents
 - `.claude/agents/` - Sub-agent configurations
-  - `crypto/` - Cryptocurrency analysis agents
+  - `crypto/` - Cryptocurrency analysis agents (multiple model variants: Haiku, Opus, Sonnet)
+    - `crypto-coin-analyzer-*.md` - Detailed cryptocurrency analysis
+    - `crypto-investment-plays-*.md` - Investment opportunity identification
+    - `crypto-market-agent-*.md` - Market trend analysis
+    - `crypto-movers-haiku.md` - Price movement tracking
+    - `macro-crypto-correlation-scanner-*.md` - Macro economic correlation analysis
   - `hello-world-agent.md` - Simple greeting example
-  - `llm-ai-agents-and-eng-research.md` - AI research specialist
+  - `llm-ai-agents-and-eng-research.md` - AI research specialist (also available globally)
   - `meta-agent.md` - Agent that creates other agents
+  - `changelog-updater.md` - Documentation maintenance specialist
   - `work-completion-summary.md` - Audio summary generator
 - `logs/` - JSON logs of all hook executions
   - `user_prompt_submit.json` - User prompt submissions with validation
@@ -594,7 +602,7 @@ This project includes a comprehensive collection of custom output styles (`.clau
 
 | Style                | Description                                        | Best For                                                |
 | -------------------- | -------------------------------------------------- | ------------------------------------------------------- |
-| **genui** ⭐          | **Generates beautiful HTML with embedded styling** | **Interactive visual outputs, instant browser preview** |
+| **genui** ⭐          | **Generates complete HTML with embedded modern styling and auto-opens in browser** | **Interactive visual outputs, instant browser preview, professional documentation** |
 | **table-based**      | Organizes all information in markdown tables       | Comparisons, structured data, status reports            |
 | **yaml-structured**  | Formats responses as YAML configuration            | Settings, hierarchical data, API responses              |
 | **bullet-points**    | Clean nested lists with dashes and numbers         | Action items, documentation, task tracking              |
@@ -629,9 +637,9 @@ This project includes enhanced Claude Code status lines that display real-time c
 | **v3**  | `status_line_v3.py` | Agent sessions    | Agent name, model, last 3 prompts                        |
 | **v4**  | `status_line_v4.py` | Extended metadata | Agent name, model, latest prompt, custom key-value pairs |
 
-### Session Management
+### Global Session Management
 
-Status lines leverage session data stored in `.claude/data/sessions/<session_id>.json`:
+Status lines leverage **global session data** stored in `~/.claude/data/sessions/<session_id>.json` for cross-project persistence. This allows session information to be shared across all Claude Code projects on your system:
 
 ```json
 {
@@ -645,6 +653,12 @@ Status lines leverage session data stored in `.claude/data/sessions/<session_id>
   }
 }
 ```
+
+**Global Session Benefits:**
+- **Cross-Project Persistence**: Session data persists across all Claude Code projects on your system
+- **Unified Agent Identity**: Agent names and metadata are maintained globally
+- **Shared Context**: Session information can be accessed from any project directory
+- **Improved Status Lines**: Better performance and consistency in status line displays
 
 **Agent Naming:**
 - Automatically generates unique agent names using LLM services
@@ -683,6 +697,32 @@ Set your preferred status line in `.claude/settings.json`:
 - 🗑️ Red - Deletion tasks
 - ❓ Blue - Questions
 - 💬 Default - General conversation
+
+## Automated Documentation Management
+
+### Changelog Command
+This project includes an automated documentation system using the `/changelog_update` slash command:
+
+```bash
+/changelog_update                    # Analyze last 10 commits and update documentation
+/changelog_update 20                # Analyze last 20 commits
+```
+
+**Features:**
+- **Automated Analysis**: Uses the changelog-updater sub-agent to analyze git commits and file changes
+- **CHANGELOG.md Maintenance**: Automatically updates or creates CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/) format
+- **README.md Updates**: Intelligently updates README.md when changes affect user-facing functionality
+- **Semantic Categorization**: Properly categorizes changes as Added, Changed, Fixed, Deprecated, Removed, or Security
+- **Intelligent Review**: Presents changes for review before finalizing documentation updates
+
+**Usage Workflow:**
+1. Complete development work and commit changes
+2. Run `/changelog_update` to analyze recent commits
+3. The changelog-updater agent reviews git history and file modifications
+4. Documentation is automatically updated with properly categorized entries
+5. Review and approve the generated documentation updates
+
+This system ensures project documentation stays current with minimal manual effort while following industry best practices.
 
 
 

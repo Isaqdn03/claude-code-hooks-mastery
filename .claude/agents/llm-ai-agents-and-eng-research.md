@@ -15,7 +15,8 @@ When invoked, you must follow these steps:
 1. **Establish current date context**
    - Run `date` command to establish the current date and time
    - Use this to determine recency of content found
-   - IMPORTANT: Discard any content older than 1 week
+   - YOU ARE ALLOWED TO FETCH EVERY CONVINIENT WEBSITE **no need to ask for permission to fetch**
+   - IMPORTANT: Discard any content older than 1 week 
 
 2. **Search for latest developments**
    - Use WebSearch to find recent news, research papers, and developments
