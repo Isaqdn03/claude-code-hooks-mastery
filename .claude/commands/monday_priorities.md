@@ -1,17 +1,27 @@
-# Monday.com Priority Tasks
+# Monday.com Priority Analysis
 
-Show upcoming tasks that need attention in the next 7 days, perfect for weekly planning.
+Intelligent priority analysis with scoring system and multi-criteria ranking.
 
 ## Usage
 ```bash
-/monday_priorities [board_id]
+/monday_priorities                        # All active boards
+/monday_priorities --board-ids ID1 ID2   # Specific boards
+/monday_priorities --person "John Smith"  # Focus on specific person
+/monday_priorities --limit 30             # Show top 30 items (default: 20)
 ```
 
+**Implementation:** Uses `uv run .claude/hooks/monday_priorities_impl.py`
+
 ## What it does
-- Lists tasks due in the next 7 days
-- Color-codes urgency (red: ≤2 days, yellow: ≤5 days, green: >5 days)
-- Sorts by due date for easy prioritization
-- Excludes completed tasks
+- **Intelligent priority scoring** based on multiple criteria
+- Analyzes priority levels, due dates, and status conditions
+- Categorizes items: Critical, Urgent, Overdue, Due Today, Blocked
+- Shows comprehensive item details: assignees, status, group, due dates
+- Calculates priority scores for objective ranking
+- Identifies blocked and stuck items requiring attention
+- Filters by person for individual priority lists
+- **✅ FIXED:** Now properly extracts data from all column types
+- **Enhanced:** Full data parsing including numbers, files, and relationships
 
 ## Setup Required
 1. Add your Monday.com API token to environment:
@@ -23,16 +33,48 @@ Show upcoming tasks that need attention in the next 7 days, perfect for weekly p
 
 ## Example Output
 ```
-Priority Tasks (Next 7 Days):
-  - 🔴 Concrete Delivery - Due in 1 day (2025-01-23)
-  - 🔴 Building Permit Renewal - Due in 2 days (2025-01-24)
-  - 🟡 Framing Inspection - Due in 4 days (2025-01-26)
-  - 🟡 Material Order Deadline - Due in 5 days (2025-01-27)
-  - 🟢 Safety Training Session - Due in 6 days (2025-01-28)
+🎯 Monday.com Priorities Report - January 22, 2025
+
+🚨 CRITICAL ITEMS
+   • Foundation Safety Review
+     👤 John Smith | 📊 In Progress | 🎯 Critical | 📁 Construction | ⚠️ 2 days overdue
+
+⚠️ OVERDUE ITEMS
+   • Building Permit Renewal
+     👤 Maria Garcia | 📊 Not Started | 🎯 High | 📁 Permits | ⚠️ 1 day overdue
+
+📅 DUE TODAY
+   • Concrete Delivery Coordination
+     👤 Bob Johnson | 📊 In Progress | 🎯 Urgent | 📁 Materials | 📅 Due today
+
+🚧 BLOCKED ITEMS
+   • Electrical Inspection
+     👤 Sarah Wilson | 📊 Stuck | 🎯 High | 📁 Quality Control
+
+🎖️ TOP PRIORITIES (Overall)
+   • Foundation Safety Review [350]
+     👤 John Smith | 📊 In Progress | 🎯 Critical | 📁 Construction | ⚠️ 2 days overdue
+   • Concrete Delivery Coordination [270]
+     👤 Bob Johnson | 📊 In Progress | 🎯 Urgent | 📁 Materials | 📅 Due today
 ```
 
 ## Use Cases
-- Weekly planning meetings
-- Client status updates
-- Scheduling critical path activities
-- Preventing last-minute rushes
+- **Weekly planning meetings** with objective priority ranking
+- **Daily standups** with filtered individual priorities
+- **Client status updates** with intelligent urgency assessment
+- **Resource allocation** based on priority scores
+- **Risk management** by identifying critical and blocked items
+- **Project management** with comprehensive priority visibility
+
+## Priority Scoring System
+- **Priority Level:** Critical (100), Urgent (80), High (60), Medium (40), Normal (20), Low (10)
+- **Status Conditions:** Blocked/Stuck (+50), In Progress (+30), Completed (-100)
+- **Due Date Urgency:** Overdue (+200), Due Today (+150), Due This Week (+100)
+- **Combined Scoring:** Multi-factor analysis for objective ranking
+
+## Advanced Features
+- **Multi-Criteria Analysis:** Combines priority, status, and timing
+- **Smart Categorization:** Automatically groups by urgency type
+- **Person Filtering:** Individual priority views for team members
+- **Comprehensive Details:** Shows all relevant item information
+- **Objective Ranking:** Numerical scores remove subjective bias

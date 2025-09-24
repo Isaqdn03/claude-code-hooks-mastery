@@ -4,16 +4,22 @@ Display all Monday.com boards accessible to your account with their IDs and grou
 
 ## Usage
 ```bash
-/monday_boards           # List all boards with groups
-/monday_boards --simple  # List boards only (no groups)
+/monday_boards                    # List all boards with groups
+/monday_boards --simple           # List boards only (no groups)
+/monday_boards --board-ids ID1 ID2  # Show specific boards
+/monday_boards --active-only      # Show only active boards
 ```
 
+**Implementation:** Uses `uv run .claude/hooks/monday_boards_impl.py`
+
 ## What it does
-- Lists all boards you have access to
+- Lists all boards you have access to with full API integration
 - Shows board IDs needed for other Monday.com commands
-- **NEW:** Displays all groups within each board with their IDs
+- Displays all groups within each board with their IDs
 - Shows group colors and organization
 - Provides comprehensive project structure overview
+- Tests API connection and displays user account information
+- Supports filtering by board IDs and active status
 
 ## Setup Required
 Add your Monday.com API token to environment:
@@ -37,10 +43,15 @@ export MONDAY_API_TOKEN="your_api_token_here"
 ```
 
 ## Enhanced Features
+- **Full API Integration:** Real Monday.com API calls with modern best practices
 - **Group IDs:** Essential for targeted queries within specific project groups
 - **Visual Indicators:** Color-coded groups for easy identification
 - **Project Organization:** See how projects are structured within boards
 - **Complete Reference:** All IDs needed for Monday.com API integration
+- **Error Handling:** Robust retry logic and rate limiting
+- **User Verification:** Shows connected user and account information
+- **✅ FIXED:** Reliable board and group enumeration
+- **Enhanced:** Complete metadata extraction for all board elements
 
 ## Use Cases
 - Target specific project groups in reports
