@@ -11,7 +11,7 @@ A comprehensive system extending Claude Code with 8 lifecycle hooks, 18 speciali
 - 🪝 **8 Complete Hook System** - Full Claude Code lifecycle control with security features
 - 🤖 **18 Specialized Agents** - Including meta-agent, crypto analysis, and documentation generators
 - 💼 **Monday.com Integration** - Enterprise-grade project management with $278K+ real data tested
-- 🎨 **8 Output Styles** - Including interactive HTML generation with embedded styling
+- 🎨 **10+ Output Styles** - Including interactive HTML generation, Mermaid diagrams, and timeline chronicles
 - 🔊 **Intelligent TTS System** - Multi-provider audio feedback (ElevenLabs, OpenAI, pyttsx3)
 - 🛡️ **Security Features** - Dangerous command prevention and audit logging
 - 📊 **Financial Analytics** - Complete expense tracking and reporting
@@ -155,7 +155,7 @@ Objective task ranking using multi-criteria analysis:
 - **Status Modifiers**: Blocked/Stuck (+50), In Progress (+30), Completed (-100)
 - **Due Date Urgency**: Overdue (+200), Due Today (+150), Due This Week (+100)
 
-## 🎨 Output Styles (8 Styles)
+## 🎨 Output Styles (10+ Styles)
 
 Transform Claude's responses with professional formatting options.
 
@@ -181,6 +181,12 @@ Transform Claude's responses with professional formatting options.
 | **ultra-concise** | Minimal words, maximum speed | Experienced developers, rapid prototyping |
 | **html-structured** | Semantic HTML5 with data attributes | Web integration, rich formatting |
 | **markdown-focused** | Full markdown feature utilization | Complex documentation, mixed content |
+
+### Visual Documentation Styles
+| Style | Description | Best For |
+|-------|-------------|----------|
+| **mermaid-diagram** ⭐ | **Convert explanations into Mermaid flowcharts, sequence diagrams, and architectural representations** | **Process documentation, API workflows, system architecture** |
+| **timeline-chronicle** ⭐ | **Chronological timeline format with ASCII art elements and milestone tracking** | **Project histories, incident timelines, process flows** |
 
 ### Usage
 ```bash
@@ -228,12 +234,20 @@ Transform Claude's responses with professional formatting options.
 
 ## 🔧 Advanced Features
 
-### Status Lines (4 Versions)
-Real-time terminal status with conversation context:
+### Status Lines (Enhanced Suite)
+Real-time terminal status with comprehensive monitoring:
+
+#### Core Status Lines
 - **v1**: Basic git and directory info
 - **v2**: Smart prompts with color-coded task types
 - **v3**: Agent sessions with prompt history
 - **v4**: Extended metadata and custom key-value pairs
+
+#### Specialized Monitoring ⭐
+- **Productivity Metrics**: Developer productivity tracking with git activity, code generation metrics, and focus time analysis
+- **Resource Monitor**: Real-time system monitoring (CPU, memory, disk, network) with warning indicators
+- **Claude Conversation**: Context tracking for ongoing conversations and session management
+- **Monday.com Integration**: Live status of project management integrations and API health
 
 ### Global Session Management
 Cross-project session persistence with automatic agent naming and metadata tracking.
@@ -258,8 +272,8 @@ Automated validation and testing integration for maintaining code quality.
 ├── agents/                  # 18 specialized sub-agents
 │   └── crypto/              # 13 cryptocurrency analysis agents
 ├── commands/                # 18+ custom slash commands
-├── output-styles/           # 8 response formatting styles
-└── status_lines/           # 4 terminal status line versions
+├── output-styles/           # 10+ response formatting styles
+└── status_lines/           # Enhanced status line suite with specialized monitoring
 ```
 
 ### Security Architecture

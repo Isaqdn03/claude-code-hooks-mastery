@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Productivity Metrics Status Line**: Advanced developer productivity tracking (`productivity_metrics_status.py`) with:
+  - Git activity monitoring (commits, streaks, lines added/removed)
+  - Claude Code productivity analysis (code generation, problems solved, tool usage)
+  - Focus time tracking and session analysis
+  - Comprehensive productivity scoring with visual indicators and motivational messages
+- **Resource Monitor Status Line**: Real-time system monitoring (`resource_monitor_status.py`) featuring:
+  - CPU, memory, and disk usage tracking with color-coded alerts
+  - Network and disk I/O speed monitoring
+  - Top process identification and system temperature monitoring
+  - Warning indicators for high resource usage (>90% thresholds)
+- **Enhanced Status Line Suite**: Additional monitoring capabilities with:
+  - Claude conversation context tracking (`claude_conversation_status.py`)
+  - Monday.com integration status monitoring (`monday_integration_status.py`)
+- **Visual Output Styles**: Two new professional output formats:
+  - **Mermaid Diagram Style**: Convert explanations into Mermaid flowcharts, sequence diagrams, and architectural representations with rendering instructions
+  - **Timeline Chronicle Style**: Chronological timeline format with ASCII art elements, milestone tracking, and visual progression indicators
+- **Board Resolution Testing**: Test implementation for Monday.com board name resolution functionality (`test_board_resolution.py`)
+- **Documentation Organization**: Enhanced project structure with CHEATSHEET.md moved to dedicated `ai_docs/` directory for better organization
 - **Monday.com Integration Suite**: Enterprise-grade Monday.com workspace management with 6 specialized commands:
   - `/monday_boards` - Board and group listing with filtering options
   - `/monday_daily_report` - Daily status reports with overdue task analysis
