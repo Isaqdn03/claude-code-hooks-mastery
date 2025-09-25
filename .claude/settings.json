@@ -20,7 +20,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "uv run .claude/status_lines/status_line_v2.py",
+    "command": "uv run .claude/status_lines/resource_monitor_status.py",
     "padding": 0
   },
   "hooks": {

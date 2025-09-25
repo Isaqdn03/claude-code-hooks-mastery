@@ -215,21 +215,59 @@ def generate_expense_report(board_id, group_ids=None):
 
 def main():
     parser = argparse.ArgumentParser(description='Generate Monday.com expense reports with financial data')
-    parser.add_argument('--board-id', required=True, help='Monday.com board ID')
-    parser.add_argument('--group-ids', nargs='+', help='Specific group IDs to analyze')
+
+    # Board identification - support both ID and name
+    board_group = parser.add_mutually_exclusive_group(required=True)
+    board_group.add_argument('--board-id', help='Monday.com board ID (numeric)')
+    board_group.add_argument('--board', '--board-name', dest='board_name', help='Board name or partial board name')
+
+    # Group identification - support both IDs and names
+    group_group = parser.add_mutually_exclusive_group()
+    group_group.add_argument('--group-ids', nargs='+', help='Specific group IDs to analyze')
+    group_group.add_argument('--groups', '--group-names', dest='group_names', nargs='+', help='Group names or partial group names')
+
     parser.add_argument('--output-json', help='Save report data as JSON file')
 
     args = parser.parse_args()
 
     try:
-        expense_data, total_amount = generate_expense_report(args.board_id, args.group_ids)
+        # Initialize client for board/group resolution
+        client = MondayAPIClient()
+
+        # Resolve board identifier to board info
+        if args.board_id:
+            board_identifier = args.board_id
+        else:
+            board_identifier = args.board_name
+
+        print(f"🔍 Resolving board: '{board_identifier}'...")
+        board_info = client.resolve_board(board_identifier)
+        board_id = board_info['id']
+        print(f"✅ Found board: '{board_info['name']}' (ID: {board_id})")
+
+        # Resolve group identifiers if provided
+        group_ids = None
+        if args.group_ids:
+            group_ids = args.group_ids
+            print(f"📁 Using group IDs: {group_ids}")
+        elif args.group_names:
+            print(f"🔍 Resolving groups: {args.group_names}...")
+            resolved_groups = []
+            for group_name in args.group_names:
+                group_info = client.resolve_group(board_info, group_name)
+                resolved_groups.append(group_info['id'])
+                print(f"✅ Found group: '{group_info['title']}' (ID: {group_info['id']})")
+            group_ids = resolved_groups
+
+        expense_data, total_amount = generate_expense_report(board_id, group_ids)
 
         # Save JSON output if requested
         if args.output_json:
             output_data = {
                 'generated_at': datetime.now().isoformat(),
-                'board_id': args.board_id,
-                'group_ids': args.group_ids,
+                'board_id': board_id,
+                'board_name': board_info['name'],
+                'group_ids': group_ids,
                 'total_amount': total_amount,
                 'expenses': expense_data
             }

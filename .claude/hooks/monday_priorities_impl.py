@@ -356,8 +356,12 @@ def generate_priorities_report(client, board_ids=None, focus_person=None, limit=
 
 def main():
     parser = argparse.ArgumentParser(description="Analyze Monday.com priorities and urgent items")
+
+    # Board identification - support both IDs and names
     parser.add_argument('--board-ids', nargs='+',
                        help='Specific board IDs to analyze')
+    parser.add_argument('--boards', '--board-names', dest='board_names', nargs='+',
+                       help='Board names or partial board names to analyze')
     parser.add_argument('--person',
                        help='Focus analysis on specific person')
     parser.add_argument('--limit', type=int, default=20,
@@ -369,8 +373,19 @@ def main():
         # Initialize API client
         client = MondayAPIClient()
 
+        # Resolve board names to IDs if needed
+        board_ids = args.board_ids
+        if args.board_names:
+            print(f"🔍 Resolving boards: {args.board_names}...")
+            resolved_board_ids = []
+            for board_name in args.board_names:
+                board_info = client.resolve_board(board_name)
+                resolved_board_ids.append(board_info['id'])
+                print(f"✅ Found board: '{board_info['name']}' (ID: {board_info['id']})")
+            board_ids = resolved_board_ids
+
         # Generate and display report
-        generate_priorities_report(client, args.board_ids, args.person, args.limit)
+        generate_priorities_report(client, board_ids, args.person, args.limit)
 
     except MondayAPIError as e:
         print(f"❌ Monday.com API Error: {e}")

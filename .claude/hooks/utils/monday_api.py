@@ -341,6 +341,104 @@ class MondayAPIClient:
         logger.info(f"Found {len(filtered_items)} items matching '{search_term}'")
         return filtered_items
 
+    def resolve_board(self, identifier: str) -> Dict[str, Any]:
+        """
+        Resolve board identifier to board info
+
+        Args:
+            identifier: Board ID, board name, or partial board name
+
+        Returns:
+            Dict containing board info with id, name, description, etc.
+
+        Raises:
+            MondayAPIError: If board not found or multiple matches
+        """
+        # If it looks like a board ID (numeric), try direct lookup first
+        if identifier.isdigit():
+            try:
+                boards = self.get_boards_with_groups([identifier])
+                if boards:
+                    logger.info(f"Resolved board ID '{identifier}' to '{boards[0]['name']}'")
+                    return boards[0]
+            except Exception:
+                # Fall through to name-based search
+                pass
+
+        # Get all boards for name matching
+        all_boards = self.get_boards_with_groups()
+
+        # Exact name match first
+        exact_matches = [b for b in all_boards if b['name'].lower() == identifier.lower()]
+        if len(exact_matches) == 1:
+            logger.info(f"Resolved board name '{identifier}' to ID {exact_matches[0]['id']}")
+            return exact_matches[0]
+        elif len(exact_matches) > 1:
+            names = [b['name'] for b in exact_matches]
+            raise MondayAPIError(f"Multiple boards found with exact name '{identifier}': {names}")
+
+        # Partial name match (case-insensitive substring)
+        partial_matches = [b for b in all_boards if identifier.lower() in b['name'].lower()]
+
+        if len(partial_matches) == 0:
+            available_names = [b['name'] for b in all_boards[:10]]  # Show first 10
+            raise MondayAPIError(f"No board found matching '{identifier}'. Available boards: {available_names}")
+        elif len(partial_matches) == 1:
+            logger.info(f"Resolved partial board name '{identifier}' to '{partial_matches[0]['name']}' (ID: {partial_matches[0]['id']})")
+            return partial_matches[0]
+        else:
+            # Multiple partial matches - show options
+            names = [f"'{b['name']}' (ID: {b['id']})" for b in partial_matches]
+            raise MondayAPIError(f"Multiple boards match '{identifier}': {names[:5]}. Please be more specific.")
+
+    def resolve_group(self, board_info: Dict[str, Any], group_identifier: str) -> Dict[str, Any]:
+        """
+        Resolve group identifier within a board
+
+        Args:
+            board_info: Board info dict from resolve_board()
+            group_identifier: Group ID, group title, or partial group title
+
+        Returns:
+            Dict containing group info with id, title, color, etc.
+
+        Raises:
+            MondayAPIError: If group not found or multiple matches
+        """
+        groups = board_info.get('groups', [])
+
+        if not groups:
+            raise MondayAPIError(f"Board '{board_info['name']}' has no groups")
+
+        # Exact ID match first
+        id_matches = [g for g in groups if g['id'] == group_identifier]
+        if id_matches:
+            logger.info(f"Resolved group ID '{group_identifier}' to '{id_matches[0]['title']}'")
+            return id_matches[0]
+
+        # Exact title match
+        exact_matches = [g for g in groups if g['title'].lower() == group_identifier.lower()]
+        if len(exact_matches) == 1:
+            logger.info(f"Resolved group title '{group_identifier}' to ID {exact_matches[0]['id']}")
+            return exact_matches[0]
+        elif len(exact_matches) > 1:
+            titles = [g['title'] for g in exact_matches]
+            raise MondayAPIError(f"Multiple groups found with exact title '{group_identifier}': {titles}")
+
+        # Partial title match
+        partial_matches = [g for g in groups if group_identifier.lower() in g['title'].lower()]
+
+        if len(partial_matches) == 0:
+            available_titles = [g['title'] for g in groups]
+            raise MondayAPIError(f"No group found matching '{group_identifier}' in board '{board_info['name']}'. Available groups: {available_titles}")
+        elif len(partial_matches) == 1:
+            logger.info(f"Resolved partial group title '{group_identifier}' to '{partial_matches[0]['title']}' (ID: {partial_matches[0]['id']})")
+            return partial_matches[0]
+        else:
+            # Multiple partial matches - show options
+            titles = [f"'{g['title']}' (ID: {g['id']})" for g in partial_matches]
+            raise MondayAPIError(f"Multiple groups match '{group_identifier}': {titles}. Please be more specific.")
+
 # Convenience function for quick API access
 def get_monday_client() -> MondayAPIClient:
     """Get a configured Monday.com API client"""

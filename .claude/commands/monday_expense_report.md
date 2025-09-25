@@ -3,6 +3,15 @@
 Generate comprehensive expense reports with actual financial data extracted from Monday.com boards. Specifically designed to parse monetary values and create detailed financial analysis.
 
 ## Usage
+
+### New User-Friendly Syntax (Recommended)
+```bash
+/monday_expense_report --board "RSR Miami Roof"                      # Generate expense report using board name
+/monday_expense_report --board "RSR Miami" --groups "Materials"      # Report for specific group by name
+/monday_expense_report --board "Kitchen Renovation" --output-json report.json # Save detailed JSON data
+```
+
+### Traditional ID-Based Syntax (Still Supported)
 ```bash
 /monday_expense_report --board-id BOARD_ID                           # Generate expense report for entire board
 /monday_expense_report --board-id BOARD_ID --group-ids GROUP1 GROUP2 # Report for specific groups

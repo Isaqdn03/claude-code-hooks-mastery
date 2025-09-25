@@ -3,11 +3,20 @@
 Intelligent priority analysis with scoring system and multi-criteria ranking.
 
 ## Usage
+
+### New User-Friendly Syntax (Recommended)
 ```bash
-/monday_priorities                        # All active boards
-/monday_priorities --board-ids ID1 ID2   # Specific boards
-/monday_priorities --person "John Smith"  # Focus on specific person
-/monday_priorities --limit 30             # Show top 30 items (default: 20)
+/monday_priorities                                    # All active boards
+/monday_priorities --boards "RSR Miami" "Kitchen"    # Specific boards by name
+/monday_priorities --boards "Miami Roof" --person "John Smith"  # Focus on specific person
+/monday_priorities --boards "Office" --limit 30      # Show top 30 items (default: 20)
+```
+
+### Traditional ID-Based Syntax (Still Supported)
+```bash
+/monday_priorities --board-ids ID1 ID2               # Specific boards by ID
+/monday_priorities --person "John Smith"             # Focus on specific person
+/monday_priorities --limit 30                        # Show top 30 items (default: 20)
 ```
 
 **Implementation:** Uses `uv run .claude/hooks/monday_priorities_impl.py`
