@@ -28,19 +28,29 @@ class Colors:
     MAGENTA = "\033[95m"
     WHITE = "\033[97m"
 
-def get_global_session_path() -> Path:
-    """Get the global Claude session data path."""
-    return Path.home() / ".claude" / "data" / "sessions"
+def get_local_session_path() -> Path:
+    """Get the local Claude session data path for this project instance."""
+    return Path(".claude/data/sessions")
 
-def get_current_session() -> Optional[Dict[str, Any]]:
+def get_current_session(session_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Load the current Claude Code session data."""
-    session_dir = get_global_session_path()
+    session_dir = get_local_session_path()
 
     if not session_dir.exists():
         return None
 
-    # Find the most recent session file
-    session_files = list(session_dir.glob("session_*.json"))
+    # If session_id provided, load that specific session
+    if session_id:
+        session_file = session_dir / f"{session_id}.json"
+        if session_file.exists():
+            try:
+                with open(session_file, 'r') as f:
+                    return json.load(f)
+            except:
+                pass
+
+    # Fallback: Find the most recent session file
+    session_files = list(session_dir.glob("*.json"))
     if not session_files:
         return None
 
@@ -53,8 +63,8 @@ def get_current_session() -> Optional[Dict[str, Any]]:
     except:
         return None
 
-def analyze_conversation_logs() -> Dict[str, Any]:
-    """Analyze conversation logs for metrics."""
+def analyze_conversation_logs(session_id: Optional[str] = None) -> Dict[str, Any]:
+    """Analyze conversation logs for metrics, optionally filtered by session."""
     stats = {
         'tool_calls': {},
         'total_tool_calls': 0,
@@ -82,6 +92,9 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         entries = json.loads(content)
                         if isinstance(entries, list):
                             for entry in entries:
+                                # Skip if session_id provided and doesn't match
+                                if session_id and entry.get('session_id') != session_id:
+                                    continue
                                 tool_name = entry.get('tool_name', 'Unknown')
                                 stats['tool_calls'][tool_name] = stats['tool_calls'].get(tool_name, 0) + 1
                                 stats['total_tool_calls'] += 1
@@ -103,6 +116,9 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         for line in lines:
                             try:
                                 entry = json.loads(line.strip())
+                                # Skip if session_id provided and doesn't match
+                                if session_id and entry.get('session_id') != session_id:
+                                    continue
                                 tool_name = entry.get('tool_name', 'Unknown')
                                 stats['tool_calls'][tool_name] = stats['tool_calls'].get(tool_name, 0) + 1
                                 stats['total_tool_calls'] += 1
@@ -133,6 +149,9 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         entries = json.loads(content)
                         if isinstance(entries, list):
                             for entry in entries:
+                                # Skip if session_id provided and doesn't match
+                                if session_id and entry.get('session_id') != session_id:
+                                    continue
                                 if entry.get('error') or 'error' in str(entry.get('result', '')).lower():
                                     stats['errors'] += 1
                     except json.JSONDecodeError:
@@ -140,6 +159,9 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         for line in content.strip().split('\n'):
                             try:
                                 entry = json.loads(line.strip())
+                                # Skip if session_id provided and doesn't match
+                                if session_id and entry.get('session_id') != session_id:
+                                    continue
                                 if entry.get('error') or 'error' in str(entry.get('result', '')).lower():
                                     stats['errors'] += 1
                             except:
@@ -157,6 +179,10 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         entries = json.loads(content)
                         if isinstance(entries, list):
                             for entry in entries:
+                                # Skip if session_id provided and doesn't match
+                                # Note: chat.json uses 'sessionId' not 'session_id'
+                                if session_id and entry.get('sessionId') != session_id:
+                                    continue
                                 role = entry.get('role', '')
                                 content_text = entry.get('content', '')
 
@@ -170,6 +196,10 @@ def analyze_conversation_logs() -> Dict[str, Any]:
                         for line in content.strip().split('\n'):
                             try:
                                 entry = json.loads(line.strip())
+                                # Skip if session_id provided and doesn't match
+                                # Note: chat.json uses 'sessionId' not 'session_id'
+                                if session_id and entry.get('sessionId') != session_id:
+                                    continue
                                 role = entry.get('role', '')
                                 content_text = entry.get('content', '')
 
@@ -210,13 +240,13 @@ def format_tokens(tokens: int) -> str:
     else:
         return f"{tokens/1000000:.1f}M"
 
-def get_session_duration() -> Optional[str]:
-    """Calculate session duration from logs."""
+def get_session_duration(session_id: Optional[str] = None) -> Optional[str]:
+    """Calculate session duration from logs for a specific session."""
     logs_dir = Path("logs")
     if not logs_dir.exists():
         return None
 
-    # Find earliest and latest timestamps
+    # Find earliest and latest timestamps for this session
     earliest = None
     latest = None
 
@@ -229,6 +259,11 @@ def get_session_duration() -> Optional[str]:
                     entries = json.loads(content)
                     if isinstance(entries, list):
                         for entry in entries:
+                            # Skip if session_id provided and doesn't match
+                            # Different logs use different field names
+                            entry_session = entry.get('session_id') or entry.get('sessionId')
+                            if session_id and entry_session != session_id:
+                                continue
                             timestamp_str = entry.get('timestamp')
                             if timestamp_str:
                                 timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
@@ -241,6 +276,10 @@ def get_session_duration() -> Optional[str]:
                     for line in content.strip().split('\n'):
                         try:
                             entry = json.loads(line.strip())
+                            # Skip if session_id provided and doesn't match
+                            entry_session = entry.get('session_id') or entry.get('sessionId')
+                            if session_id and entry_session != session_id:
+                                continue
                             timestamp_str = entry.get('timestamp')
                             if timestamp_str:
                                 timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
@@ -267,14 +306,23 @@ def get_session_duration() -> Optional[str]:
 def main():
     """Generate Claude conversation analytics status line."""
     try:
+        # Try to read session_id from stdin (provided by Claude Code)
+        session_id = None
+        try:
+            if not sys.stdin.isatty():
+                input_data = json.loads(sys.stdin.read())
+                session_id = input_data.get('session_id')
+        except:
+            pass
+
         # Load session data
-        session = get_current_session()
+        session = get_current_session(session_id)
 
-        # Analyze conversation logs
-        stats = analyze_conversation_logs()
+        # Analyze conversation logs for this specific session
+        stats = analyze_conversation_logs(session_id)
 
-        # Get session duration
-        duration = get_session_duration()
+        # Get session duration for this specific session
+        duration = get_session_duration(session_id)
 
         # Build status line components
         status_parts = []

@@ -207,25 +207,6 @@
 **Description:** Latest AI/ML research updates and insights
 **Global:** Available across all projects
 
-### **Cryptocurrency Agents** (Multiple Model Variants)
-
-Each crypto agent comes in 3 model variants: **Haiku** (fast), **Sonnet** (balanced), **Opus** (detailed)
-
-#### **crypto-coin-analyzer-*** - Individual Coin Analysis
-**Purpose:** Detailed analysis of specific cryptocurrency
-**Usage:** Give specific ticker symbol (BTC, ETH, SOL)
-
-#### **crypto-market-agent-*** - Market Overview
-**Purpose:** Top N cryptocurrencies by market cap analysis
-
-#### **crypto-investment-plays-*** - Investment Opportunities
-**Purpose:** Actionable investment strategies with risk scoring
-
-#### **crypto-movers-haiku** - Price Movement Tracking
-**Purpose:** Biggest gainers and losers over timeframes
-
-#### **macro-crypto-correlation-scanner-*** - Macro Analysis
-**Purpose:** Fed policy, inflation, traditional market correlations
 
 ---
 
@@ -241,9 +222,6 @@ Each crypto agent comes in 3 model variants: **Haiku** (fast), **Sonnet** (balan
 - `/changelog_update` - Update documentation from recent commits
 - `/changelog_update 20` - Analyze last 20 commits
 
-### **Cryptocurrency Research**
-- `/crypto_research [TICKER]` - Full crypto research (all agents)
-- `/crypto_research_haiku [TICKER]` - Lightweight crypto research
 
 ### **AI Research**
 - `/ai_research` - Latest AI/ML research and developments
@@ -326,11 +304,6 @@ All hooks use UV for fast, isolated dependency management
 # Meta-agent automatically creates the new agent file
 ```
 
-### Comprehensive Crypto Research
-```bash
-/crypto_research BTC
-# Runs all 12 crypto agents in parallel, outputs to organized directory
-```
 
 ### Enable Advanced Logging
 All hook events are logged to `logs/` directory in JSON format for analysis and debugging.

@@ -67,6 +67,10 @@
           },
           {
             "type": "command",
+            "command": "uv run .claude/hooks/yaml_transcript_processor.py"
+          },
+          {
+            "type": "command",
             "command": "uv run .claude/hooks/quality_gates.py"
           }
         ]

@@ -71,15 +71,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Global Session Management**: Implemented global session data storage in `~/.claude/data/sessions/` for cross-project session persistence
 - **Changelog Command**: New `/changelog_update` slash command for automated documentation updates using dedicated changelog-updater agent
 - **GenUI Output Style**: Enhanced HTML generation output style with embedded modern styling, professional themes, and browser auto-opening
-- **Cryptocurrency Research Agents**: Comprehensive suite of crypto analysis agents including:
-  - Crypto coin analyzer (Haiku, Opus, Sonnet variants)
-  - Crypto investment plays analyzer
-  - Crypto market agent
-  - Crypto movers tracker
-  - Macro crypto correlation scanner
 - **Changelog-Updater Agent**: Specialized sub-agent for maintaining project documentation following Keep a Changelog standards
 - **Enhanced Status Lines**: Updated status line scripts to use global session paths and improved metadata support
-- **Agent Prompt Templates**: Dedicated prompt templates for crypto research agents in `.claude/commands/agent_prompts/`
 
 ### Changed (Earlier Updates)
 - **Session Start Hook**: Enhanced to support global session data management and improved development context loading

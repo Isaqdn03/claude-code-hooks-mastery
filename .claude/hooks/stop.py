@@ -218,6 +218,25 @@ def main():
         if args.notify:
             announce_completion()
 
+        # Process YAML responses if --yaml-log flag is set
+        if hasattr(args, 'yaml_log') and args.yaml_log:
+            try:
+                # Import and run the YAML response logger
+                from pathlib import Path
+                import subprocess
+                yaml_logger_path = Path(__file__).parent / 'post_response.py'
+                if yaml_logger_path.exists():
+                    # Pass input data to the YAML logger
+                    subprocess.run(
+                        ['uv', 'run', str(yaml_logger_path)],
+                        input=json.dumps(input_data),
+                        text=True,
+                        capture_output=True,
+                        timeout=5
+                    )
+            except:
+                pass  # Fail silently
+
         sys.exit(0)
 
     except json.JSONDecodeError:

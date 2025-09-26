@@ -9,7 +9,7 @@ A comprehensive system extending Claude Code with 8 lifecycle hooks, 18 speciali
 ## ✨ Key Features
 
 - 🪝 **8 Complete Hook System** - Full Claude Code lifecycle control with security features
-- 🤖 **18 Specialized Agents** - Including meta-agent, crypto analysis, and documentation generators
+- 🤖 **5 Specialized Agents** - Including meta-agent, documentation generators, and research tools
 - 💼 **Monday.com Integration** - Enterprise-grade project management with $278K+ real data tested
 - 🎨 **10+ Output Styles** - Including interactive HTML generation, Mermaid diagrams, and timeline chronicles
 - 🔊 **Intelligent TTS System** - Multi-provider audio feedback (ElevenLabs, OpenAI, pyttsx3)
@@ -101,7 +101,7 @@ Complete Claude Code lifecycle control with enterprise security features.
 - **Audit Logging**: All interactions logged to `logs/` directory
 - **Exit Code Control**: Precise flow control with structured JSON responses
 
-## 🤖 Agent Ecosystem (18 Agents)
+## 🤖 Agent Ecosystem (5 Agents)
 
 ### Core Utility Agents
 - **meta-agent** - Generates new agents from descriptions
@@ -110,21 +110,6 @@ Complete Claude Code lifecycle control with enterprise security features.
 - **hello-world-agent** - Simple greeting and testing
 - **llm-ai-agents-and-eng-research** - Latest AI/ML research updates
 
-### Cryptocurrency Analysis Suite (13 Agents)
-Professional financial market analysis with multiple model variants:
-
-| Agent Type | Models Available | Purpose |
-|------------|------------------|---------|
-| **crypto-coin-analyzer** | Haiku, Opus, Sonnet | Individual cryptocurrency analysis |
-| **crypto-investment-plays** | Haiku, Opus, Sonnet | Investment opportunity identification |
-| **crypto-market-agent** | Haiku, Opus, Sonnet | Market trend analysis |
-| **crypto-movers** | Haiku | Price movement tracking |
-| **macro-crypto-correlation** | Haiku, Opus, Sonnet | Economic correlation analysis |
-
-### Model Selection Guide
-- **Haiku**: Fast, lightweight analysis for quick insights
-- **Sonnet**: Balanced performance for general use (default)
-- **Opus**: Deep, comprehensive analysis for critical decisions
 
 ## 💼 Monday.com Integration
 
@@ -226,11 +211,6 @@ Transform Claude's responses with professional formatting options.
 /ai_research                  # Latest AI/ML research and trends
 ```
 
-### Cryptocurrency Research
-```bash
-/crypto_research BTC          # Comprehensive analysis (all agents)
-/crypto_research_haiku ETH    # Lightweight analysis (Haiku agents)
-```
 
 ## 🔧 Advanced Features
 
@@ -269,8 +249,7 @@ Automated validation and testing integration for maintaining code quality.
 ├── hooks/                    # 8 lifecycle hooks with UV dependencies
 │   ├── utils/               # Shared utilities (TTS, LLM, Monday API)
 │   └── monday_*_impl.py     # Monday.com integration implementations
-├── agents/                  # 18 specialized sub-agents
-│   └── crypto/              # 13 cryptocurrency analysis agents
+├── agents/                  # 5 specialized sub-agents
 ├── commands/                # 18+ custom slash commands
 ├── output-styles/           # 10+ response formatting styles
 └── status_lines/           # Enhanced status line suite with specialized monitoring
@@ -332,7 +311,7 @@ Complete interaction history stored in `logs/`:
 ### Development Workflows
 - **Documentation**: Automated changelog generation and project analysis
 - **Code Review**: Security vulnerability scanning and quality gates
-- **Research**: AI/ML trends and cryptocurrency market analysis
+- **Research**: AI/ML trends and industry analysis
 - **Agent Development**: Meta-agent for rapid custom agent creation
 
 ### Content Creation
