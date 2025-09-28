@@ -12,10 +12,9 @@ Run the commands under the `Execute` section to gather information about the pro
 
 ## Read
 - README.md
-- ai_docs/cc_hooks_docs.md
-- ai_docs/uv-single-file-scripts.md
-- ai_docs/anthropic_custom_slash_commands.md
-- ai_docs/anthropic_docs_subagents.md
+- CHANGELOG.md
+- CHEATSHEET.md
+- .claude/settings.json
 
 ## Report
 

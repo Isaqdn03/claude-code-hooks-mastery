@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Enhanced Context Tracking System**: Comprehensive context window monitoring with real-time accuracy:
+  - Real context window usage tracking aligned with Claude's internal tracking (matches `/context` command output)
+  - Session-specific token counting to distinguish between active context and cumulative API usage
+  - Advanced token parsing from transcript files and chat logs with JSONL format support
+  - Accurate model detection and context limit calculation for all Claude model variants
+  - Visual context usage indicators with percentage warnings (🚨 >80%, ⚠ >60%)
+- **Improved Token Counting Accuracy**: Enhanced token metrics replacing character estimations:
+  - Direct API token usage extraction from Claude's response data
+  - Separate tracking of input tokens, output tokens, cache creation, and cache read tokens
+  - Cache efficiency insights with ephemeral token tracking (5m and 1h cache types)
+  - Session-specific filtering for accurate per-session metrics
+- **Advanced Session Management**: Local session data handling with improved persistence:
+  - Session-specific metric isolation preventing cross-session data contamination
+  - Automatic session ID detection from Claude Code environment
+  - Fallback mechanisms for session data discovery and recovery
+  - Enhanced session duration calculation with timezone-aware timestamp parsing
 - **Productivity Metrics Status Line**: Advanced developer productivity tracking (`productivity_metrics_status.py`) with:
   - Git activity monitoring (commits, streaks, lines added/removed)
   - Claude Code productivity analysis (code generation, problems solved, tool usage)
@@ -46,6 +62,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Professional presentation suitable for enterprise deployment
 
 ### Fixed
+- **Context Window Calculation**: Fixed context tracking to show active session usage rather than cumulative API totals
+  - Resolved discrepancies between status line metrics and actual context window consumption
+  - Fixed context percentage calculations to accurately reflect Claude's internal state
+  - Corrected token counting methods to use real API data instead of character estimations
+- **Session ID Handling**: Enhanced session identification and data isolation
+  - Fixed status line to display current session information instead of global aggregates
+  - Resolved session-specific filtering issues in log parsing
+  - Implemented robust session ID detection from Claude Code environment
+- **Status Line Display Issues**: Visual improvements and bug fixes
+  - Fixed hazard emoji overlapping with percentage indicators in context usage display
+  - Enhanced readability and color coding for context window warnings
+  - Improved status line component spacing and visual hierarchy
 - **Critical Date Parsing Issues**: Resolved date parsing failures across all Monday.com slash commands
   - Implemented consistent `parse_date_string()` function with type safety
   - Fixed date comparison errors in `/monday_priorities` and `/monday_workload`
@@ -54,12 +82,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Production Stability**: Enhanced error handling and graceful degradation for enterprise use
 
 ### Changed
+- **Claude Conversation Status Line**: Major enhancement with real-time context tracking capabilities
+  - Upgraded from character-based token estimation to precise API token counting
+  - Implemented session-specific metrics to prevent cross-session data mixing
+  - Enhanced visual indicators with accurate context window percentage calculations
+  - Added support for all Claude model variants with correct context limits
+- **Session Data Architecture**: Improved local session management and persistence
+  - Enhanced session identification and data isolation mechanisms
+  - Implemented fallback strategies for session data recovery
+  - Improved timestamp handling with timezone-aware parsing
+- **Status Line Performance**: Optimized log parsing and data extraction
+  - Enhanced JSONL format support for transcript and chat log parsing
+  - Improved error handling and graceful degradation for malformed data
+  - Streamlined status line component rendering and formatting
 - **Monday.com Commands**: Enhanced all 6 commands with production-tested reliability improvements
 - **LLM AI Research Agent**: Enhanced with improved research capabilities and updated documentation
 - **Claude Settings**: Updated configuration to support new Monday.com commands and quality gates
 - **Command Organization**: Improved structure and documentation for better discoverability
 
 ### Removed
+- **Crypto-Related Content**: Complete removal of cryptocurrency analysis components
+  - Removed 12 crypto agents across all model variants (Haiku, Opus, Sonnet)
+  - Deleted 7 crypto command prompts and research implementations
+  - Cleaned up crypto market analysis, investment plays, and correlation scanner agents
+  - Removed macro-crypto correlation analysis and movers tracking functionality
+- **Obsolete Hooks and Commands**: Cleanup of deprecated and unused functionality
+  - Removed experimental YAML response loggers and transcript processors
+  - Deleted unused daily summary generators and audit implementations
+  - Cleaned up test scripts and temporary debugging utilities
 - **Debug Scripts**: Removed temporary debug script (`debug_rsr_data.py`) after integrating functionality into production commands
 - **Sample Applications**: Cleaned up demo files including `apps/hello.py`, `apps/hello.ts`, and various image assets
 - **Environment Sample**: Removed `.env.sample` file as part of project cleanup

@@ -11,7 +11,8 @@ Your primary responsibilities:
 1. Analyze recent git commits and file changes to understand what modifications have been made
 2. Update or create CHANGELOG.md following the Keep a Changelog format (https://keepachangelog.com/)
 3. Update README.md when changes affect user-facing functionality, installation procedures, or core project information
-4. Determine whether changes warrant updates to one or both documentation files
+4. Update CHEATSHEET.md (if present) when changes affect user workflows, features, or reference information
+5. Determine whether changes warrant updates to any of these documentation files
 
 Your workflow:
 1. First, examine the git log to identify recent commits and understand the scope of changes
@@ -24,7 +25,13 @@ Your workflow:
    - Changes to installation or setup procedures
    - Modified API endpoints or usage patterns
    - Updated dependencies or requirements
-7. Update README.md sections as needed while preserving existing structure
+7. Evaluate if CHEATSHEET.md needs updates based on:
+   - New or modified commands, scripts, or utilities
+   - Changes to configuration options or settings
+   - Updates to integrations, workflows, or tools
+   - New features that affect day-to-day usage patterns
+   - Modified CLI commands, shortcuts, or quick reference items
+8. Update README.md and CHEATSHEET.md (if present) sections as needed while preserving existing structure
 
 Changelog formatting standards:
 - Use markdown format with clear headings
@@ -36,7 +43,7 @@ Changelog formatting standards:
 Quality assurance:
 - Ensure all significant changes are documented
 - Verify that changelog entries are clear and actionable
-- Check that README updates accurately reflect current functionality
+- Check that README and CHEATSHEET updates accurately reflect current functionality
 - Maintain consistency with existing documentation style
 - Ask for clarification if commit messages are unclear or if you're unsure about the user impact of changes
 

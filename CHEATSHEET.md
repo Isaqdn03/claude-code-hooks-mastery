@@ -192,8 +192,9 @@
 **Usage:** "Build a new sub-agent that runs tests and fixes failures"
 
 #### **changelog-updater** - Documentation Maintenance
-**Description:** Updates project documentation from git changes
+**Description:** Updates project documentation (CHANGELOG.md, README.md, CHEATSHEET.md) from git changes
 **Usage:** Automatically triggered by `/changelog_update` command
+**Enhanced:** Now supports CHEATSHEET.md updates for workflow and reference changes
 
 #### **work-completion-summary** - Audio Summaries
 **Description:** Provides TTS summaries of completed work
@@ -219,8 +220,8 @@
 - `/git_status` - Current git repository state
 
 ### **Documentation**
-- `/changelog_update` - Update documentation from recent commits
-- `/changelog_update 20` - Analyze last 20 commits
+- `/changelog_update` - Update documentation (CHANGELOG.md, README.md, CHEATSHEET.md) from recent commits
+- `/changelog_update 20` - Analyze last 20 commits and update all relevant documentation
 
 
 ### **AI Research**

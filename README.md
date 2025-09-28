@@ -9,7 +9,7 @@ A comprehensive system extending Claude Code with 8 lifecycle hooks, 18 speciali
 ## ✨ Key Features
 
 - 🪝 **8 Complete Hook System** - Full Claude Code lifecycle control with security features
-- 🤖 **5 Specialized Agents** - Including meta-agent, documentation generators, and research tools
+- 🤖 **5 Specialized Agents** - Including meta-agent, documentation generators, research tools, and work completion summaries
 - 💼 **Monday.com Integration** - Enterprise-grade project management with $278K+ real data tested
 - 🎨 **10+ Output Styles** - Including interactive HTML generation, Mermaid diagrams, and timeline chronicles
 - 🔊 **Intelligent TTS System** - Multi-provider audio feedback (ElevenLabs, OpenAI, pyttsx3)
@@ -109,6 +109,8 @@ Complete Claude Code lifecycle control with enterprise security features.
 - **work-completion-summary** - Audio task summaries with TTS
 - **hello-world-agent** - Simple greeting and testing
 - **llm-ai-agents-and-eng-research** - Latest AI/ML research updates
+
+*Note: All cryptocurrency-related agents have been removed to focus on core productivity and project management features.*
 
 
 ## 💼 Monday.com Integration
@@ -226,7 +228,11 @@ Real-time terminal status with comprehensive monitoring:
 #### Specialized Monitoring ⭐
 - **Productivity Metrics**: Developer productivity tracking with git activity, code generation metrics, and focus time analysis
 - **Resource Monitor**: Real-time system monitoring (CPU, memory, disk, network) with warning indicators
-- **Claude Conversation**: Context tracking for ongoing conversations and session management
+- **Claude Conversation**: **Enhanced real-time context window tracking with session-specific accuracy**
+  - **Precise token counting** aligned with Claude's internal tracking (matches `/context` command)
+  - **Context usage warnings** with visual indicators (🚨 >80%, ⚠ >60%)
+  - **Session isolation** preventing cross-session data contamination
+  - **API token insights** with cache efficiency and model detection
 - **Monday.com Integration**: Live status of project management integrations and API health
 
 ### Global Session Management

@@ -5,7 +5,7 @@ description: Update project documentation to reflect recent code changes using t
 
 # Changelog Update Command
 
-This command uses the @agent-changelog-updater to analyze recent git commits and update project documentation (CHANGELOG.md and README.md) to reflect code changes.
+This command uses the @agent-changelog-updater to analyze recent git commits and update project documentation (CHANGELOG.md, README.md, and CHEATSHEET.md if present) to reflect code changes.
 
 ## Variables
 
@@ -28,7 +28,7 @@ This command uses the @agent-changelog-updater to analyze recent git commits and
    - Recent git commits and their messages
    - List of modified files
    - Current repository status
-   - Request to update CHANGELOG.md and README.md as appropriate
+   - Request to update CHANGELOG.md, README.md, and CHEATSHEET.md as appropriate
 
 ## Workflow
 
@@ -51,5 +51,6 @@ The changelog-updater agent will:
 - Analyze recent commits and file changes
 - Update or create CHANGELOG.md following Keep a Changelog format
 - Update README.md if changes affect user-facing functionality
+- Update CHEATSHEET.md (if present) if changes affect user workflows or reference information
 - Categorize changes appropriately (Added, Changed, Fixed, etc.)
 - Present changes for review before finalizing
